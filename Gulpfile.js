@@ -38,6 +38,12 @@ gulp.task('lint:client', function() {
     .pipe(jshint.reporter('jshint-stylish'));
 });
 
+// Image optimization and move to static folder
+gulp.task('compile:images', function() {
+  return gulp.src('./assets/images/**/*')
+    .pipe(gulp.dest('./build/images'));
+});
+
 // Tests linting
 gulp.task('lint:tests', function() {
   return gulp.src('./tests/**/*.spec.js')
@@ -92,7 +98,7 @@ gulp.task('watch', ['compile:styles', 'compile:templates', 'compile:scripts', 'r
 
 // Compile task
 gulp.task('compile', function(callback) {
-  runSequence('clean:build', 'compile:templates', ['compile:styles', 'compile:scripts'], 'clean:templates', callback);
+  runSequence('clean:build', 'compile:templates', ['compile:images', 'compile:styles', 'compile:scripts'], 'clean:templates', callback);
 });
 
 gulp.task('build', ['compile']);
