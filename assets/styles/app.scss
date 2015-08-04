@@ -1,3 +1,4 @@
+
 // Modules and Variables
 @import "partials/base";
 
@@ -6,13 +7,10 @@
 @import "partials/typography";
 @import "partials/buttons";
 @import "partials/grid";
+@import "partials/fonts";
+
 // ...
 
 // Third-party
-//@import "vendor/colorpicker";
-//@import "vendor/jquery.ui.core";
-
-// placeholder
-body {
-  background: #eee;
-}
+//@import "../vendor/colorpicker";
+//@import "../vendor/jquery.ui.core";

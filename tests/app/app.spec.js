@@ -1,8 +1,8 @@
-import BaseObject from 'fiber';
+import app from '../../app/app.js';
 
-describe('BaseObject Test', function () {
+describe('App Test', function () {
 
-  it('should be a constructor', function () {
-    expect(greet('World')).toEqual('Hello, World!');
+  it('should have a method called test that returns 42', function () {
+    expect(app.test()).toEqual(42);
   });
 });

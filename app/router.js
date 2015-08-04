@@ -2,6 +2,10 @@ class Router {
   constructor() {
     console.log('constructed');
   }
+
+  test() {
+    return 42;
+  }
 }
 
-module.exports = Router;
+export default Router;

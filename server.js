@@ -1,17 +1,19 @@
 var express = require('express');
-var app = express();
-var favicon = require('serve-favicon');
+  app = express(),
+  favicon = require('serve-favicon'),
+  chalk = require('chalk'),
+  config = require('config');
 
 app.use(express.static('build'));
-app.use(favicon('./build/images/favicon.ico'));
+app.use(favicon(__dirname + '/build/images/favicon.ico'));
 
 app.get('/', function (req, res) {
-  res.sendFile('index.html');
+  res.sendFile(__dirname + '/index.html');
 });
 
-var server = app.listen(3000, function () {
+var server = app.listen(config.port, function () {
   var host = server.address().address,
     port = server.address().port;
 
-  console.log('Listening at http://%s:%s', host, port);
+  console.log(chalk.green('Application is running on %s:%s. Ctrl + C to exit...'), host, port);
 });

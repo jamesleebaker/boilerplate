@@ -5,6 +5,7 @@ var gulp = require('gulp'),
   source = require('vinyl-source-stream'),
   jshint = require('gulp-jshint'),
   clean = require('gulp-clean'),
+  gulpif = require('gulp-if'),
   sass = require('gulp-sass'),
   sourcemaps = require('gulp-sourcemaps'),
   minifyCSS = require('gulp-minify-css'),
@@ -13,11 +14,14 @@ var gulp = require('gulp'),
   handlebars = require('gulp-handlebars'),
   runSequence = require('run-sequence'),
   wrap = require('gulp-wrap'),
-  livereload = require('gulp-livereload');
+  livereload = require('gulp-livereload'),
+  run = require('gulp-run'),
+  karma = require('karma'),
+  environment = process.env.NODE_ENV;
 
 // Clean the build
 gulp.task('clean:build', function() {
-  return gulp.src('build/**/*', {read: false})
+  return gulp.src('build/**/*', { read: false })
     .pipe(clean({
       force: true
     }));
@@ -25,7 +29,7 @@ gulp.task('clean:build', function() {
 
 // Clean the compiled templates
 gulp.task('clean:templates', function() {
-  return gulp.src('app/*(templates)', {read: false})
+  return gulp.src('app/*(templates)', { read: false })
     .pipe(clean({
       force: true
     }));
@@ -64,7 +68,7 @@ gulp.task('compile:styles', function () {
   return gulp.src('./assets/styles/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
-    .pipe(minifyCSS())
+    .pipe(gulpif(environment === 'production', minifyCSS()))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('./build'));
 });
@@ -73,20 +77,33 @@ gulp.task('compile:styles', function () {
 gulp.task('compile:scripts', ['lint:client'], function() {
   return browserify({
     entries: './app/app.js',
-    debug: true
+    debug: environment !== 'production'
   })
   .transform(babelify)
   .bundle()
   .pipe(source('app.js'))
   .pipe(buffer())
-  .pipe(sourcemaps.init({loadMaps: true}))
-  //.pipe(uglify())   // Turn on for production
+  .pipe(sourcemaps.init({ loadMaps: environment !== 'development' }))
+  .pipe(gulpif(environment === 'production', uglify()))
   .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('./build'));
 });
 
+// Karma Testing
+gulp.task('run:tests', ['lint:tests'], function(done) {
+  karma.server.start({
+    configFile:  __dirname + '/tests/config.js'
+  }, done);
+});
+
+// Start the Node app
+gulp.task('run:app', function(done) {
+  var cmd = new run.Command('npm start', { verbosity: 3 });
+  cmd.exec();
+});
+
 // Watch and Live Reload
-gulp.task('watch', ['compile:styles', 'compile:templates', 'compile:scripts', 'run:tests'] ,function () {
+gulp.task('watch', function () {
   gulp.watch('./assets/styles/**/*.scss', ['compile:styles']);
   gulp.watch('./assets/templates/**/*.*', ['compile:templates']);
   gulp.watch('./app/**/*.js', ['compile:scripts']);
@@ -101,8 +118,14 @@ gulp.task('compile', function(callback) {
   runSequence('clean:build', 'compile:templates', ['compile:images', 'compile:styles', 'compile:scripts'], 'clean:templates', callback);
 });
 
-gulp.task('build', ['compile']);
-gulp.task('run', ['build', 'watch']);
+gulp.task('start', function(callback) {
+  runSequence('compile', 'run:app', 'watch');
+});
 
+gulp.task('deploy', function(callback) {
+  // future task for deploying
+});
+
+gulp.task('test', ['run:tests']);
 
 
