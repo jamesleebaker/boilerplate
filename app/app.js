@@ -1,7 +1,10 @@
 import Router from './router';
+import $ from 'jquery';
+import styles from 'styles/app';
+import template from 'templates/views/index';
 
-//import template from './templates/views/index';
-//console.log(template({ name: 'James' }));
+var container = document.querySelector('#main-wrapper');
+container.innerHTML = template({ name: 'James' });
 
 module.exports = {
   test: function() {

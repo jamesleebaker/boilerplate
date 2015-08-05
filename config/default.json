@@ -1,23 +1,6 @@
 {
   "port": 8000,
   "vendorFiles": {
-    "scripts": [
-      "./bower_components/jquery/dist/jquery.js",
-      "./bower_components/bootstrap/dist/js/bootstrap.js",
-      "./bower_components/flat-ui/dist/js/flat-ui.js"
-    ],
-    "styles": [
-      "./bower_components/bootstrap/dist/css/bootstrap.css",
-      "./bower_components/flat-ui/dist/css/flat-ui.css",
-      "./bower_components/fontawesome/fonts/css/font-awesome.css"
-    ],
-    "fonts": [
-      "./bower_components/fontawesome/fonts/fontawesome-webfont.eot",
-      "./bower_components/fontawesome/fonts/fontawesome-webfont.svg",
-      "./bower_components/fontawesome/fonts/fontawesome-webfont.ttf",
-      "./bower_components/fontawesome/fonts/fontawesome-webfont.woff",
-      "./bower_components/fontawesome/fonts/fontawesome-webfont.woff2",
-      "./bower_components/fontawesome/fonts/fontawesome-webfont.otf"
-    ]
+
   }
 }
