@@ -4,7 +4,7 @@ import styles from 'styles/app';
 import template from 'templates/views/index';
 
 var container = document.querySelector('#main-wrapper');
-container.innerHTML = template({ name: 'James' });
+container.innerHTML = template({ name: 'James Baker' });
 
 module.exports = {
   test: function() {
