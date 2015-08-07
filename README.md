@@ -34,6 +34,5 @@
 
 ###Deployment
 To deploy, enter the following commands on the production machine:
-
-* export NODE_ENV=production
-* webpack -p --config webpack.production.config.js
+`export NODE_ENV=production`
+`webpack -p --config webpack.production.config.js`
