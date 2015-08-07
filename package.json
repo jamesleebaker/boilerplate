@@ -2,7 +2,8 @@
   "scripts": {
     "start": "node server",
     "test": "karma start tests/config.js",
-    "single-test": "karma start tests/config.js --log-level debug --single-run"
+    "single-test": "karma start tests/config.js --log-level debug --single-run",
+    "deploy": "webpack -p --config webpack.production.config.js"
   },
   "dependencies": {
     "autoprefixer-loader": "^2.0.0",
