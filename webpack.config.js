@@ -26,6 +26,11 @@ module.exports = {
     publicPath: '/static/'
   },
   module: {
+    preLoaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'jshint-loader'
+    }],
     loaders: [
     {
       test: /\.js$/,
@@ -55,4 +60,8 @@ module.exports = {
     extensions: ['', '.js', '.scss', '.hbs'],
     modulesDirectories: ['assets', 'node_modules']
   },
+  jshint: {
+    emitErrors: true,
+    camelcase: true
+  }
 };
