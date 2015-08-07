@@ -1,7 +1,5 @@
 class Router {
-  constructor() {
-    console.log('constructed');
-  }
+  constructor() {}
 
   test() {
     return 42;

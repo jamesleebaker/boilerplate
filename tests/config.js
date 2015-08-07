@@ -1,24 +1,30 @@
 module.exports = function(config) {
   config.set({
-    basePath: '',
+    basePath: '../',
     browsers: ['PhantomJS'],
     frameworks: ['jasmine'],
     files: [
-      './app/**/*.spec.js'
+      'tests/specs/**/*.spec.js',
+      'index.html'
     ],
     preprocessors: {
-      './app/**/*.js': ['webpack']
+      'tests/specs/**/*.js': ['webpack'],
+      'index.html': ['html2js']
     },
     reporters: ['nyan'],
     plugins: [
       require('karma-webpack'),
       'karma-jasmine',
       'karma-nyan-reporter',
-      'karma-phantomjs-launcher'
+      'karma-phantomjs-launcher',
+      'karma-html2js-preprocessor'
     ],
     colors: true,
-    webpack: { //kind of a copy of your webpack config
-      devtool: 'inline-source-map', //just do inline source maps instead of the default
+    jsonFixturesPreprocessor: {
+      variableName: '__json__'
+    },
+    webpack: {
+      devtool: 'inline-source-map',
       module: {
         loaders: [
         {
@@ -44,7 +50,7 @@ module.exports = function(config) {
       }
     },
     webpackServer: {
-      noInfo: true //please don't spam the console when running in karma!
+      noInfo: true
     }
   });
 };
