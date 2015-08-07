@@ -1,21 +1,36 @@
 ##Lacking
-* [DONE] Getting unit testing set up
+* Can I test handlebars templates against JSON fixtures?
+* HTML/JSON fixtures for karma w/ jasmine
+* Client-side components:
+  * Router
+  * Data Binding
+  * Numbers library
+  * Date Library
+  * MVC pattern (base objects)
+  * Mixins & Decorators
+  * Event loop, bus, or pub/sub pattern
+  * Event logging
+* Generators
+  * Model
+  * Route
+  * Controller
+  * View/Partials
+* Socket.io support
+* Handling vendor scripts and stylesheets
+* HTMLBars
+* Web Components
+* Any other necessary express middleware?
 * Considering end-to-end tests, acceptance tests, and integration tests
-* [DONE] Favicon with Express
-* Any other necessary middleware
-* Add environment configs and pull with nconf into Gulpfile and server.js
-* Add gulp-if for Gulpfile
-* [DONE]Copy images in the build process to the build folder
 * Look into image compression, spriting, and more
-* Convert Gulpfile.js to ES6
+* Yeoman generator
+* Abstraction into node modules
 
-##Stuctrual Needs
-* Assume all content in repo will be in a client folder in a client-server ecosystem
-* server.js file for starting client-side web server
-* package.json for app meta and node dependencies
-* index.html - initial HTML page loaded
-* Gulpfile.js - compiling and other task scripting
-*
+##Done
+
+* Getting unit testing set up
+* Favicon with Express
+* Add environment configs and pull with nconf into Gulpfile and server.js
+* Copy images in the build process to the build folder
 
 ###Deployment
 To deploy, enter the following commands on the production machine:
