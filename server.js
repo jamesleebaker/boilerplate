@@ -1,6 +1,6 @@
-var express = require('express');
+var express = require('express'),
   app = express(),
-  favicon = require('serve-favicon'),
+  //favicon = require('serve-favicon'),
   chalk = require('chalk'),
   config = require('config'),
   path = require('path'),
@@ -11,20 +11,21 @@ var express = require('express');
     ws: true
   }),
   config = require('config'),
-  isProduction = process.env.NODE_ENV === 'production';
+  isProduction = process.env.NODE_ENV === 'production',
+  //mockServer = require('./mock_server'),
+  bundle,
+  server;
 
 app.use(express.static('build'));
 //app.use(favicon(path.resolve(__dirname, 'build', 'images', 'favicon.ico')));
 
-app.get('/', function (req, res) {
-  res.sendFile(path.resolve(__dirname, 'index.html'));
-});
-
 if (!isProduction) {
 
-  var bundle = require('./webpack.server.js');
-
+  bundle = require('./webpack.server.js');
   bundle();
+
+  // enable once you make a mock
+  //mockServer.start();
 
   app.all('/static/*', function (req, res) {
     proxy.web(req, res, {
@@ -38,25 +39,12 @@ if (!isProduction) {
     });
   });
 
-
   proxy.on('error', function(e) {
     // TODO: catch it
   });
+}
 
-  // We need to use basic HTTP service to proxy
-  // websocket requests from webpack
-  var server = http.createServer(app);
-
-  server.on('upgrade', function (req, socket, head) {
-    proxy.ws(req, socket, head);
-  });
-
-  server.listen(config.port, function () {
-     console.log(chalk.green('Application is running on port %s. Ctrl + C to exit...'), config.port);
-  });
-
-} else {
-
+if(isProduction) {
   app.all('/static/:file', function (req, res) {
     var params = req.params;
 
@@ -67,12 +55,20 @@ if (!isProduction) {
 
     res.sendFile(path.resolve(path.resolve(__dirname, 'build', params.file)));
   });
-
-  var server = app.listen(config.port, function () {
-    var host = server.address().address,
-      port = server.address().port;
-
-    console.log(chalk.green('Application is running on %s:%s. Ctrl + C to exit...'), host, port);
-  });
-
 }
+
+app.get('*', function (req, res) {
+  res.sendFile(path.resolve(__dirname, 'index.html'));
+});
+
+server = http.createServer(app);
+
+if(!isProduction) {
+  server.on('upgrade', function (req, socket, head) {
+    proxy.ws(req, socket, head);
+  });
+}
+
+server.listen(config.port, function () {
+   console.log(chalk.green('Application is running on port %s. Ctrl + C to exit...'), config.port);
+});

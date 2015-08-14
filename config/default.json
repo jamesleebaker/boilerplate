@@ -2,5 +2,8 @@
   "port": 8000,
   "vendorFiles": {
 
-  }
+  },
+  "useSSL": false,
+  // mock server
+  "server": "localhost:8001"
 }

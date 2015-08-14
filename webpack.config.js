@@ -58,7 +58,7 @@ module.exports = {
   ],
   resolve: {
     extensions: ['', '.js', '.scss', '.hbs'],
-    modulesDirectories: ['assets', 'node_modules']
+    modulesDirectories: ['assets', 'app', 'node_modules']
   },
   jshint: {
     emitErrors: true,

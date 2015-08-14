@@ -1,4 +1,4 @@
-import Router from '../../app/router.js';
+import Router from '../../app/routes.js';
 
 describe('Router Test', () => {
   var router = new Router();
