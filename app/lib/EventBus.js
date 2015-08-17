@@ -1,13 +1,13 @@
 import Logger from 'js-logger';
+import moment from 'moment';
 
 const eventsLogger = Logger.get('EventBus');
-const hasOwnProperty = topics.hasOwnProperty;
 let topics = {};
 let instance = null;
 
 function formatMessage(topic, action) {
-  const date = new Date();
-  return `${date} on EventBus: ${topic} has been ${action}`;
+  const date = moment().format('H:mm:SS');
+  return `${date}: The ${topic} topic has been ${action}`;
 }
 
 class EventBus {
@@ -15,12 +15,12 @@ class EventBus {
     if(!instance){
       instance = this;
     }
-  },
+  }
 
   subscribe(topic, listener) {
     let index;
 
-    if(!hasOwnProperty.call(topics, topic)) {
+    if(!topics.hasOwnProperty.call(topics, topic)) {
       topics[topic] = [];
     }
 
@@ -28,22 +28,22 @@ class EventBus {
     eventsLogger.info(formatMessage(topic, 'subscribed to'));
     // Provide handle back for removal of topic
     return {
-      remove: function() {
+      remove() {
         eventsLogger.info(formatMessage(topic, 'removed'));
         delete topics[topic][index];
       }
     };
-  },
+  }
 
-  publish: function(topic, info) {
-    if(!hasOwnProperty.call(topics, topic)) {
+  publish(topic, info) {
+    if(!topics.hasOwnProperty.call(topics, topic)) {
       return;
     }
 
     eventsLogger.info(formatMessage(topic, 'published'));
 
-    topics[topic].forEach(function(item) {
-      item(info != undefined ? info : {});
+    topics[topic].forEach(item => {
+      item(info !== undefined ? info : {});
     });
   }
 }

@@ -14,7 +14,6 @@
   * Controller
   * View/Partials
 * Socket.io support
-* Handling vendor scripts and stylesheets
 * HTMLBars
 * Web Components
 * Any other necessary express middleware?
@@ -32,6 +31,7 @@
   * Maybe look at Lusca from KrakenJS?
 
 ##Done
+* Handling vendor scripts and stylesheets
 * Getting unit testing set up
 * Favicon with Express
 * Add environment configs and pull with nconf into Gulpfile and server.js

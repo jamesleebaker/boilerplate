@@ -55,6 +55,7 @@ class Router {
     routerLogger.info(formatMessage(path, 'exited'));
     return page.exit.apply(page, arguments);
   }
+
   addRoutes(routes) {
     if(_.isObject(routes)) {
       _.each(routes, (value, key) => {

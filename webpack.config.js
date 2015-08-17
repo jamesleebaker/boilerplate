@@ -38,9 +38,13 @@ module.exports = {
       exclude: [path.resolve(__dirname, 'node_modules')]
     },
     {
-      test: /\.scss$/,
+      test: /\.(scss|css)$/,
       loader: ExtractTextPlugin.extract('style-loader', sassLoaders.join('!'))
     },
+    { test: /\.(woff|woff2)$/,   loader: 'url-loader?limit=10000&minetype=application/font-woff' },
+    { test: /\.ttf$/,    loader: 'file-loader' },
+    { test: /\.eot$/,    loader: 'file-loader' },
+    { test: /\.svg$/,    loader: 'file-loader' },
     {
       test: /\.hbs$/,
       loader: 'handlebars-loader'
@@ -51,13 +55,14 @@ module.exports = {
     new ExtractTextPlugin('[name].css'),
     new TransferWebpackPlugin([
       { from: 'fonts', to: 'fonts' },
+      { from: 'vendor', to: 'vendor' },
       { from: 'images', to: 'images' }
     ], path.resolve(__dirname, 'assets')),
     new webpack.HotModuleReplacementPlugin(),
     new CleanPlugin(['build'])
   ],
   resolve: {
-    extensions: ['', '.js', '.scss', '.hbs'],
+    extensions: ['', '.js', '.scss', '.hbs', '.css'],
     modulesDirectories: ['assets', 'app', 'node_modules']
   },
   jshint: {
