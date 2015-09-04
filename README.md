@@ -1,26 +1,13 @@
 ##Lacking
-* Write a sample mock [https://www.npmjs.com/package/pretender] and test it
-* https://docs.npmjs.com/cli/shrinkwrap for production deployment
 * Getting environment config into client
+* Write a sample mock [https://www.npmjs.com/package/pretender] and test it
 * Can I test handlebars templates against JSON fixtures?
 * HTML/JSON fixtures for karma w/ jasmine
-* Client-side components:
-  * Data Binding
-  * MVC pattern (base objects)
-  * Decorators
-* Generators
-  * Model
-  * Route
-  * Controller
-  * View/Partials
 * Socket.io support
-* HTMLBars
-* Web Components
+  * Controller.sendRequest - supports traditional requests and socket.io
 * Any other necessary express middleware?
 * Considering end-to-end tests, acceptance tests, and integration tests
 * Look into image compression, spriting, and more
-* Yeoman generator
-* Abstraction into node modules
 * Security mechanisms - evaluate which are needed for client-side application
   * Cross Site Request Forgery
   * Content Security Policy
@@ -29,8 +16,22 @@
   * hsts
   * xssProtection
   * Maybe look at Lusca from KrakenJS?
+* Debugging Panel w/ localStorage or cookie for activation, spanning across
+  * Logger
+  * Handlebars context
+  * Performance (need to add timers into lib files)
+* Generators
+  * Model
+  * Route
+  * Controller
+  * View/Partials
+* Yeoman generator
+* https://docs.npmjs.com/cli/shrinkwrap for production deployment
+* Abstraction into node modules
 
 ##Done
+* Data Binding (via Object.observe polfill & Event Bus)
+* MVC pattern (base objects)
 * Handling vendor scripts and stylesheets
 * Getting unit testing set up
 * Favicon with Express
@@ -44,6 +45,11 @@
 * Numbers library
 * Date Library
 * Mixins
+* Decorators
+
+##Can't Do/Need More Info
+* HTMLBars
+* Web Components in Handlebars
 
 ###Deployment
 To deploy, enter the following commands on the production machine:

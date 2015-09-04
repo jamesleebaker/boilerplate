@@ -2,7 +2,6 @@ import Publisher from './Publisher';
 import Subscriber from './Subscriber';
 import Logger from 'js-logger';
 import mixin from './utils/mixin';
-import when from 'when';
 import $ from 'jquery';
 import _ from 'underscore';
 

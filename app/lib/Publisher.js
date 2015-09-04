@@ -2,6 +2,15 @@ import Logger from 'js-logger';
 import _ from 'underscore';
 
 const pubSubLogger = Logger.get('PubSub');
+const tokenizeEventName = function(event) {
+  const tokens = String(event).split(':');
+
+  return {
+    role: tokens[0],
+    entity: tokens[1],
+    event: tokens[2]
+  };
+};
 
 class Publisher {
   constructor() {
@@ -12,8 +21,7 @@ class Publisher {
     const callbacks = Array.prototype.slice.call(arguments, 1);
 
     if(_.isEmpty(eventName)) {
-      pubSubLogger.error('You must provide an event name when registering an event');
-      return;
+      throw new TypeError('You must provide an event name when registering an event');
     }
 
     this.events[eventName] = callbacks;
@@ -38,7 +46,8 @@ class Publisher {
   publish(eventName) {
     const args = Array.prototype.slice.call(arguments, 1);
     const events = this.events[eventName];
-
+    const event = tokenizeEventName(eventName);
+    
     if(_.isEmpty(eventName) || _.isEmpty(events)) {
       return;
     }

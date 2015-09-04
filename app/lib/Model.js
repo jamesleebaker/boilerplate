@@ -16,18 +16,17 @@ class Model extends Publisher {
 
   setState(properties) {
     if(!_.isObject(properties)) {
-      modelLogger.error('Properties must be in object format');
-      return;
+      throw new TypeError('Properties must be in object format');
     }
 
-    _.defaults(this, properties);
+    _.extend(this, properties);
   }
 
   broadcastChanges(changes) {
     modelLogger.info(`The following model changes on ${this.namespace} have occured:`);
     modelLogger.info(changes);
-    
-    eventBus.publish(this.namespace, changes);
+
+    this.publish(`${this.namespace}:change`, changes);
   }
 }
 

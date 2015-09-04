@@ -13,27 +13,18 @@ class IndexView extends PageView {
     super(config);
 
     this.addBindings();
-    this.observeChanges();
   }
 
   addBindings() {
     this.addBinding('[name=first-name]', 'keyup', (event) => {
       const value = this.getValueFromEvent(event);
+      this.publish('view:first-name:change', value);
       this.updateName(value);
     });
   }
 
-  observeChanges() {
-    eventBus.subscribe('model:person:change', changes => {
-      const values = _.first(changes).object;
-
-      this.updateName(`${values.firstName} ${values.lastName}`);
-    });
-  }
-
   updateName(value) {
-    this.publish('firstName:changed', value);
-    this.query('#first-name').textContent = `Hello ${value}!`;
+    this.query('#name').textContent = `Hello ${value}!`;
   }
 }
 

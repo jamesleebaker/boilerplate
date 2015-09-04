@@ -1,9 +1,9 @@
 import Model from 'lib/Model';
 
-class Person extends Model {
+class PersonModel extends Model {
   constructor(properties) {
-    super('model:person:change', properties);
+    super('model:person', properties);
   }
 }
 
-export default Person;
+export PersonModel;

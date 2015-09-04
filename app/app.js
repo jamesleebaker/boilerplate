@@ -6,6 +6,7 @@ import objectObserve from 'object.observe';
 import routes from 'routes';
 import Router from 'lib/Router';
 import Logger from 'js-logger';
+import errors from 'errors';
 
 //import moment from 'moment';
 //import numeral from 'numeral';

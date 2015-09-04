@@ -9,10 +9,9 @@ class Subscriber {
     const args = Array.prototype.slice.call(arguments, 1);
 
     if(!('registerEvent' in obj)) {
-      pubSubLogger.error('You are trying to subscribe to an object that is not a publisher');
-      return;
+      throw new TypeError('You are trying to subscribe to an object that is not a publisher');
     }
-    
+
     pubSubLogger.info(`Event name "${eventName}" was subscribed to`);
     obj.registerEvent.apply(obj, args);
   }
@@ -25,8 +24,7 @@ class Subscriber {
     const args = Array.prototype.slice.call(arguments, 1);
 
     if(!('unregisterEvent' in obj)) {
-      pubSubLogger.error('You are trying to unsubscribe from an object that is not a publisher');
-      return;
+      throw new TypeError('You are trying to unsubscribe from an object that is not a publisher');
     }
 
     obj.unregisterEvent.apply(obj, args);
