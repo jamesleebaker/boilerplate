@@ -24,7 +24,7 @@ class EventBus {
       topics[topic] = [];
     }
 
-    index = topics[topic].push(listener) -1;
+    index = topics[topic].push(listener) - 1;
     eventsLogger.info(formatMessage(topic, 'subscribed to'));
     // Provide handle back for removal of topic
     return {

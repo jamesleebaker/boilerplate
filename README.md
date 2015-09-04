@@ -1,4 +1,5 @@
 ##Lacking
+* Wildcards event names in Pub/Sub
 * Getting environment config into client
 * Write a sample mock [https://www.npmjs.com/package/pretender] and test it
 * Can I test handlebars templates against JSON fixtures?
