@@ -6,4 +6,4 @@ class PersonModel extends Model {
   }
 }
 
-export PersonModel;
+export default PersonModel;

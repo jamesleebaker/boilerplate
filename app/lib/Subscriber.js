@@ -11,7 +11,7 @@ class Subscriber {
     }
 
     pubSubLogger.info(`Event name "${eventName}" was subscribed to`);
-    obj.registerEvent.apply(obj, callbacks);
+    obj.registerEvent.apply(obj, [eventName].concat(callbacks));
   }
 
   listenTo(obj, eventName, callback) {
@@ -23,7 +23,7 @@ class Subscriber {
       throw new TypeError('You are trying to unsubscribe from an object that is not a publisher');
     }
 
-    obj.unregisterEvent.apply(obj, callbacks);
+    obj.unregisterEvent.apply(obj, [eventName].concat(callbacks));
     pubSubLogger.info(`Event name "${eventName}" was unsubscribed from`);
   }
 }

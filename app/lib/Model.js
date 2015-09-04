@@ -8,15 +8,18 @@ const modelLogger = Logger.get('Model');
 class Model extends Publisher {
   constructor(namespace, state) {
     super();
-    this.state = {};
+    this.state = _.isObject(state) ? state : {};
     this.namespace = namespace || 'model';
   }
 
   unset(key) {
-    if(!_.isEmpty(key)) {
-      this.state[key] = undefined;
-      this.publish(`${this.namespace}:unset:${key}`, this.state);
+    if(_.isEmpty(key)) {
+      return;
     }
+
+    this.state[key] = undefined;
+    this.publish(`${this.namespace}:unset:${key}`, this.state);
+    this.broadcastChanges();
   }
 
   change(key, value) {
@@ -26,6 +29,7 @@ class Model extends Publisher {
 
     this.state[key] = value;
     this.publish(`${this.namespace}:change:${key}`, value, this.state);
+    this.broadcastChanges();
   }
 
   get(...keys) {
@@ -51,12 +55,7 @@ class Model extends Publisher {
       return;
     }
 
-    if(!_.isEmpty(this.state[key])) {
-      this.state[key] = value;
-      this.publish(`${this.namespace}:set:${key}`, value, this.state);
-      return;
-    }
-
+    this.publish(`${this.namespace}:set:${key}`, value, this.state);
     this.change(key, value);
   }
 
@@ -67,6 +66,7 @@ class Model extends Publisher {
 
     this.state = properties;
     this.publish(`${this.namespace}:setState`, this.state);
+    this.broadcastChanges();
   }
 
   getState() {
@@ -74,11 +74,11 @@ class Model extends Publisher {
     return this.state;
   }
 
-  broadcastChanges(changes) {
-    modelLogger.info(`The following model changes on ${this.namespace} have occured:`);
-    modelLogger.info(changes);
+  broadcastChanges() {
+    modelLogger.info(`${this.namespace} has changed:`);
+    modelLogger.info(this.state);
 
-    this.publish(`${this.namespace}:change`, changes);
+    this.publish(`${this.namespace}:change`, this.state);
   }
 }
 

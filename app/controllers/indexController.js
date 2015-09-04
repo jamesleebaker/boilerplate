@@ -1,7 +1,7 @@
 import IndexView from 'views/IndexView';
 import Controller from 'lib/Controller';
 import PersonModel from 'models/PersonModel';
-import indexViewAdapter from 'view-adapters/indexViewAdapter';
+import IndexObserver from 'observers/IndexObserver';
 
 class IndexController extends Controller {
   constructor() {
@@ -9,21 +9,16 @@ class IndexController extends Controller {
   }
 
   default() {
-    let dataFromServer = {
+    const dataFromServer = {
       firstName: 'Maria',
       lastName: 'Baker'
     };
 
-    let view = new IndexView({});
-    let model = new PersonModel(dataFromServer);
+    const view = new IndexView({});
+    const model = new PersonModel(dataFromServer);
+    const observer = new IndexObserver(view, model);
 
-    this.listenTo(model, 'change', state => {
-      view.updateName(indexViewAdapter.updateNameFromPerson(state));
-    });
-
-    this.listenTo(view, 'first-name:change', name => {
-      
-    });
+    view.render(model.getState());
 
     // Sample GET Request
     // this.get({
@@ -36,12 +31,6 @@ class IndexController extends Controller {
     //     console.log(result);
     //     console.log(request);
     //   });
-
-    // this.listenTo(view, 'test-event', function(...data) {
-    //   console.log(data);
-    // });
-
-    view.render(person);
 
     // setTimeout(() => {
     //   person.firstName = 'James';

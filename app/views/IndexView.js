@@ -19,12 +19,16 @@ class IndexView extends PageView {
     this.addBinding('[name=first-name]', 'keyup', (event) => {
       const value = this.getValueFromEvent(event);
       this.publish('view:first-name:change', value);
-      this.updateName(value);
+    });
+
+    this.addBinding('[name=last-name]', 'keyup', (event) => {
+      const value = this.getValueFromEvent(event);
+      this.publish('view:last-name:change', value);
     });
   }
 
-  updateName(value) {
-    this.query('#name').textContent = `Hello ${value}!`;
+  update(model) {
+    this.query('#name').textContent = `Hello ${model.firstName} ${model.lastName}!`;
   }
 }
 
